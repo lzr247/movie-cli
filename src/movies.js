@@ -16,7 +16,12 @@ export const getAllMovies = async () => {
   return movies;
 };
 
-export const getMovie = async () => {};
+export const getMovie = async (filter) => {
+  const { movies } = await getDB();
+  return movies.filter((movie) =>
+    movie.content.toLowerCase().includes(filter.toLowerCase())
+  );
+};
 
 export const removeMovie = async () => {};
 

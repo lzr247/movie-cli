@@ -1,6 +1,6 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { getAllMovies, newMovie } from "./movies.js";
+import { getAllMovies, getMovie, newMovie } from "./movies.js";
 
 const logAllMovies = (movies) => {
   movies.forEach(({ id, tags, content }) => {
@@ -14,7 +14,7 @@ yargs(hideBin(process.argv))
     "create a new movie",
     (yargs) => {
       return yargs.positional("movie", {
-        describe: "The content of the movie you want to create",
+        describe: "The content of the movie you want to create.",
         type: "string",
       });
     },
@@ -38,6 +38,21 @@ yargs(hideBin(process.argv))
     async () => {
       const movies = await getAllMovies();
       logAllMovies(movies);
+    }
+  )
+  .command(
+    "find <filter>",
+    "get matching movies",
+    (yargs) => {
+      return yargs.positional("filter", {
+        describe:
+          "The search term to filter movies by, will be applied to movie.content.",
+        type: "string",
+      });
+    },
+    async (argv) => {
+      const matches = await getMovie(argv.filter);
+      logAllMovies(matches);
     }
   )
   .demandCommand(1)
