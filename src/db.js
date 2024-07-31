@@ -11,10 +11,10 @@ export const saveDB = async (db) => {
   return db;
 };
 
-export const insertDB = async (note) => {
+export const insertDB = async (movie) => {
   const db = await getDB();
-  db.notes.push(note);
+  db.movies.push(movie);
 
   await saveDB(db);
-  return note;
+  return movie;
 };
