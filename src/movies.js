@@ -34,4 +34,6 @@ export const removeMovie = async (id) => {
   }
 };
 
-export const removeAllMovies = async () => {};
+export const removeAllMovies = async () => {
+  await saveDB({ movies: [] });
+};

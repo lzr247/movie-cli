@@ -1,6 +1,12 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { getAllMovies, getMovie, newMovie, removeMovie } from "./movies.js";
+import {
+  getAllMovies,
+  getMovie,
+  newMovie,
+  removeAllMovies,
+  removeMovie,
+} from "./movies.js";
 
 const logAllMovies = (movies) => {
   movies.forEach(({ id, tags, content }) => {
@@ -67,6 +73,15 @@ yargs(hideBin(process.argv))
     async (argv) => {
       const id = await removeMovie(argv.id);
       console.log(`Movie with the id: ${id} is removed.`);
+    }
+  )
+  .command(
+    "clean",
+    "remove all movies",
+    () => {},
+    async () => {
+      await removeAllMovies();
+      console.log("All movies are removed.");
     }
   )
   .demandCommand(1)
