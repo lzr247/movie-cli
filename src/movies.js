@@ -11,7 +11,10 @@ export const newMovie = async (movie, tags) => {
   return newMovie;
 };
 
-export const getAllMovies = async () => {};
+export const getAllMovies = async () => {
+  const { movies } = await getDB();
+  return movies;
+};
 
 export const getMovie = async () => {};
 

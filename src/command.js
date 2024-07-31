@@ -1,6 +1,12 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { newMovie } from "./movies.js";
+import { getAllMovies, newMovie } from "./movies.js";
+
+const logAllMovies = (movies) => {
+  movies.forEach(({ id, tags, content }) => {
+    console.log(`${id} | ${tags} | ${content} \n`);
+  });
+};
 
 yargs(hideBin(process.argv))
   .command(
@@ -25,5 +31,14 @@ yargs(hideBin(process.argv))
     type: "string",
     description: "tags to add to the movie",
   })
+  .command(
+    "all",
+    "get all movies",
+    () => {},
+    async () => {
+      const movies = await getAllMovies();
+      logAllMovies(movies);
+    }
+  )
   .demandCommand(1)
   .parse();
