@@ -23,6 +23,15 @@ export const getMovie = async (filter) => {
   );
 };
 
-export const removeMovie = async () => {};
+export const removeMovie = async (id) => {
+  const { movies } = await getDB();
+  const match = movies.find((movie) => movie.id === id);
+
+  if (match) {
+    const newMovies = movies.filter((movie) => movie.id !== id);
+    await saveDB({ movies: newMovies });
+    return id;
+  }
+};
 
 export const removeAllMovies = async () => {};
